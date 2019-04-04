@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Friend Finder Survey</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  </head>
+  <body>
+    <h1>Survey</h1>
+
+    <p>On a scale of 1 to 5, rate the following based on your liking. 5 being the most favourite and 1 being the least.</p>
+
+    <form id="insert_friend">
+
+      <label>Name: </label>
+      <input type="text" name="friend_name" placeholder="Your Name">
+
+      <label>Photo: </label>
+      <input type="text" name="photo" placeholder="URL of your picture">
+
+      <div id="questionDiv"></div>
+
+      <button>Submit</button>
+
+    </form>
+
+    <footer>
+
+      <a href="/api/friends">See all friends</a>
+
+    </footer>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
+    <script type="text/javascript">
+      getQuestions();
+    </script>
+    
+  </body>
+</html>
