@@ -1,6 +1,14 @@
 var express = require('express');
 var app = express();
 var path = require("path");
+var methodOverride = require('method-override');
+var bodyParser = require('body-parser');
+
+app.use(methodOverride('_method'));
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(bodyParser.json());
 
 app.use(express.static("public"));
 
@@ -29,23 +37,26 @@ app.get('/questions', function(req, res) {
   });
 });
 
-app.get('/api/friends-insert', function(req, res) {
-  connection.query('INSERT INTO friends (name, picture_link) VALUES (?,?)', [req.query.name, req.query.picture_link], function(error, results, fields) {
+var friendId;
+
+app.post('/api/friends-insert', function(req, res) {
+  connection.query('INSERT INTO friends (name, picture_link) VALUES (?,?)', [req.body.name, req.body.picture_link], function(error, results, fields) {
     if (error) res.send(error)
-    else res.json({
-      message: 'success'
-    });
+    // else res.send('ID ' + results.insertId + ' added')
+    else friendId = results.insertId;  
   });
+
 });
 
-// app.get('/api/friends-insert', function(req, res){
-// 	connection.query('INSERT INTO scores (question_id, friend_id, score) VALUES (?,?,?)', [req.query.question_id, req.query.friend_id, req.query.score],function (error, results, fields) {
-// 	  if (error) res.send(error)
-// 	  else res.json({
-// 	  	message: 'success'
-// 	  });
-// 	});
-// });
+app.post('/api/scores-insert', function(req, res){
+	connection.query('INSERT INTO scores (question_id, friend_id, score) VALUES (?,?,?)', 
+	[req.body.question_id, friendId, req.body.score],function (error, results, fields) {
+	  if (error) res.send(error)
+	  else res.json({
+	  	message: 'success'
+	  });
+	});
+});
 
 app.listen(3001, function() {
   console.log('listening on 3001');

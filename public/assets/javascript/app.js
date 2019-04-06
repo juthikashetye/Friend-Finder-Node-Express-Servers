@@ -1,18 +1,60 @@
+var fn;
+var pn;
+var radio;
+var radioValue;
+var qi;
+
 $('#insert_friend').submit(function(e) {
 
     e.preventDefault(); // avoid to execute the actual submit of the form.
-    var fn = $( "#insert_friend input[name='friend_name']" ).val();
-    var pl = $("#insert_friend input[name='photo']").val();
-	$.ajax({
-		url: '/api/friends-insert',
-		method: 'GET',
-		data: {name : fn,
-				picture_link : pl}
-	}).then(function(message){
-		console.log("data added in friends table");
-	});
+    fn = $( "#insert_friend input[name='friend_name']" ).val();
+    pl = $("#insert_friend input[name='photo']").val();
+    radio = $("input[type='radio']:checked");
+
+	insertFriends();
+	setTimeout(insertScores,3000);
+	// insertScores();
 
 });
+
+function insertFriends(){
+
+		$.ajax({
+		url: '/api/friends-insert',
+		method: 'POST',
+		data: {	
+				name : fn,
+				picture_link : pl
+				}
+	}).then(function(message){
+		console.log("data added in friends table");
+		
+	});
+
+}
+
+function insertScores(){
+
+	for (var i = 0; i < radio.length; i++) {
+
+    	 radioValue = radio[i].value;
+    	 qi = radio[i].parentElement.id;
+
+    	 $.ajax({
+			url: '/api/scores-insert',
+			method: 'POST',
+			data: {	
+					question_id : qi,
+					score : radioValue
+					}
+		}).then(function(message){
+			console.log("data added in scores table");
+		
+		});
+    }
+
+}
+
 
 function getQuestions(){
 	var options = [1,2,3,4,5];
@@ -23,7 +65,8 @@ function getQuestions(){
 		for (var questionIndex in q){
 			
 			var questionPara = $("<p>");
-			questionPara.html(`${q[questionIndex].id}. ${q[questionIndex].question} <br>`);
+			questionPara.html(`${q[questionIndex].id}. ${q[questionIndex].question} <br>`)
+			.attr("id", q[questionIndex].id);
 
 			for (var j = 0; j < options.length; j++) {
 
@@ -38,7 +81,8 @@ function getQuestions(){
 	      		option.attr("type", "radio")
 	            .attr("name", q[questionIndex].id)
 	            .attr("id", q[questionIndex].id + optionNum)
-	            .attr("class", "option");
+	            .attr("class", "option")
+	            .attr("value", options[j]);
 
 	            questionPara.append(label);
 				questionPara.append(option);
@@ -46,7 +90,7 @@ function getQuestions(){
 
 			$('#questionDiv').append(questionPara);
 		}
-	})
+	});
 }
 
 // function getFriends(){
