@@ -37,20 +37,17 @@ app.get('/questions', function(req, res) {
   });
 });
 
-var friendId;
-
 app.post('/api/friends-insert', function(req, res) {
   connection.query('INSERT INTO friends (name, picture_link) VALUES (?,?)', [req.body.name, req.body.picture_link], function(error, results, fields) {
     if (error) res.send(error)
-    // else res.send('ID ' + results.insertId + ' added')
-    else friendId = results.insertId;  
+    else res.send(results.insertId.toString());
   });
 
 });
 
-app.post('/api/scores-insert', function(req, res){
+app.post('/api/scores-insert/:friend_id', function(req, res){
 	connection.query('INSERT INTO scores (question_id, friend_id, score) VALUES (?,?,?)', 
-	[req.body.question_id, friendId, req.body.score],function (error, results, fields) {
+	[req.body.question_id, req.params.friend_id, req.body.score],function (error, results, fields) {
 	  if (error) res.send(error)
 	  else res.json({
 	  	message: 'success'

@@ -12,28 +12,25 @@ $('#insert_friend').submit(function(e) {
     radio = $("input[type='radio']:checked");
 
 	insertFriends();
-	setTimeout(insertScores,3000);
-	// insertScores();
-
 });
 
 function insertFriends(){
 
-		$.ajax({
+	$.ajax({
 		url: '/api/friends-insert',
-		method: 'POST',
+		method: 'POST', 
 		data: {	
 				name : fn,
 				picture_link : pl
 				}
-	}).then(function(message){
-		console.log("data added in friends table");
-		
+	}).then(function(friendId){
+		console.log("data added in friends table : " + friendId);
+		insertScores(friendId);
 	});
 
 }
 
-function insertScores(){
+function insertScores(id){
 
 	for (var i = 0; i < radio.length; i++) {
 
@@ -41,7 +38,7 @@ function insertScores(){
     	 qi = radio[i].parentElement.id;
 
     	 $.ajax({
-			url: '/api/scores-insert',
+			url: '/api/scores-insert/' + id,
 			method: 'POST',
 			data: {	
 					question_id : qi,
