@@ -1,5 +1,5 @@
 var fn;
-var pn;
+var pl;
 var radio;
 var radioValue;
 var qi;
@@ -62,7 +62,9 @@ function getQuestions(){
 		for (var questionIndex in q){
 			
 			var questionPara = $("<p>");
-			questionPara.html(`${q[questionIndex].id}. ${q[questionIndex].question} <br>`)
+			
+			questionPara.html(`<strong>${q[questionIndex].id}. ${q[questionIndex].question}</strong> <br>`)
+			.attr("class", "questions")
 			.attr("id", q[questionIndex].id);
 
 			for (var j = 0; j < options.length; j++) {
@@ -73,7 +75,8 @@ function getQuestions(){
 	      		var option = $("<input>");
 
 	      		label.attr("for", q[questionIndex].id + optionNum)
-	           .text(options[j]);
+	      		.attr("class", "label")
+	           	.text(options[j]);
 
 	      		option.attr("type", "radio")
 	            .attr("name", q[questionIndex].id)
@@ -81,11 +84,13 @@ function getQuestions(){
 	            .attr("class", "option")
 	            .attr("value", options[j]);
 
+	            questionPara.append(option);
 	            questionPara.append(label);
-				questionPara.append(option);
+				
       		}
 
 			$('#questionDiv').append(questionPara);
+
 		}
 	});
 }
