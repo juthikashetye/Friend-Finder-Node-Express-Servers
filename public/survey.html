@@ -32,9 +32,14 @@
 
 			<div id="questionDiv"></div>
 
-			<button class="btn btn-info btn-lg btn-block">Submit</button>
-
 	    </form>
+
+	    <!-- Using this button witout  data-toggle="modal" data-target="#myModal" as want it to open modal only after user fills out all fields-->
+	    <button type="submit" class="btn btn-info btn-lg btn-block" id="submitAns">Submit</button>
+
+    	 <!-- Commented out this button as wanted the modal to open only if all fields are filled by user -->
+	    <!-- <button type="button" data-toggle="modal" data-target="#myModal" id="submitAns" class="btn btn-info btn-lg btn-block">Submit</button> -->
+
 	    <hr>
 
 	    <footer class="footer">
@@ -46,18 +51,46 @@
 		      
 		</footer>
 
-	</div>
 
-    <!-- Bootstrap js -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<div class="container">
+
+		  <!-- The Modal -->
+		  <div class="modal fade" id="myModal">
+		    <div class="modal-dialog modal-dialog-centered">
+		      <div class="modal-content">
+		      
+		        <!-- Modal Header -->
+		        <div class="modal-header">
+		          <h3 class="modal-title">Best Match</h3>
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        </div>
+		        
+		        <!-- Modal body -->
+		        <div class="modal-body friendPicDiv">
+		        	<h4 class="friendNameTitle"></h4>
+		        </div>
+		        
+		        <!-- Modal footer -->
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+		        </div> 
+		      </div>
+		    </div>
+		  </div>  
+		</div>
+	</div>
 
 	<!-- jQuery -->
     <script
       src="https://code.jquery.com/jquery-3.3.1.min.js"
       integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
       crossorigin="anonymous"></script>
+
+    <!-- Bootstrap js -->
+    <!-- Using above jQuery link instead -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <!-- js files -->
     <script type="text/javascript" src="assets/javascript/app.js"></script>

@@ -13,7 +13,7 @@ CREATE TABLE questions (
 CREATE TABLE friends (
     id INT NOT NULL AUTO_INCREMENT, 
     name VARCHAR(255) NOT NULL,
-    picture_link TEXT NOT NULL,
+    picture_link VARCHAR(255) NOT NULL,
     PRIMARY KEY(id)
 );
 

@@ -3,112 +3,136 @@ var pl;
 var radio;
 var radioValue;
 var qi;
+var friendId;
 
-$('#insert_friend').submit(function(e) {
+$(document).ready(function() {
 
-    e.preventDefault(); // avoid to execute the actual submit of the form.
-    fn = $( "#insert_friend input[name='friend_name']" ).val();
+  $('#submitAns').on("click", function(e) {
+
+    e.preventDefault();
+    fn = $("#insert_friend input[name='friend_name']").val();
     pl = $("#insert_friend input[name='photo']").val();
+
     radio = $("input[type='radio']:checked");
 
-	insertFriends();
-});
+    if ((radio.length < 10) || (fn == "") || (pl == "")) {
 
-function insertFriends(){
+      alert("Please fill out all fields before submitting");
 
-	$.ajax({
-		url: '/api/friends-insert',
-		method: 'POST', 
-		data: {	
-				name : fn,
-				picture_link : pl
-				}
-	}).then(function(friendId){
-		console.log("data added in friends table : " + friendId);
-		insertScores(friendId);
-	});
+    } else {
 
-}
-
-function insertScores(id){
-
-	for (var i = 0; i < radio.length; i++) {
-
-    	 radioValue = radio[i].value;
-    	 qi = radio[i].parentElement.id;
-
-    	 $.ajax({
-			url: '/api/scores-insert/' + id,
-			method: 'POST',
-			data: {	
-					question_id : qi,
-					score : radioValue
-					}
-		}).then(function(message){
-			console.log("data added in scores table");
-		
-		});
+      insertFriends();
+      $("#myModal").modal("toggle");
     }
 
+  });
+
+});
+
+function insertFriends() {
+
+  $.ajax({
+    url: '/api/friends-insert',
+    method: 'POST',
+    data: {
+      name: fn,
+      picture_link: pl
+    }
+  }).then(function(friend) {
+
+    console.log("data added in friends table : " + friend);
+
+    friendId = friend;
+
+    insertScores(friendId);
+    getMatch(friendId);
+  });
+
 }
 
+function insertScores(id) {
 
-function getQuestions(){
-	var options = [1,2,3,4,5];
-	$.ajax({
-		url: '/questions',
-		method: 'GET'
-	}).then(function(q){
-		for (var questionIndex in q){
-			
-			var questionPara = $("<p>");
-			
-			questionPara.html(`<strong>${q[questionIndex].id}. ${q[questionIndex].question}</strong> <br>`)
-			.attr("class", "questions")
-			.attr("id", q[questionIndex].id);
+  for (var i = 0; i < radio.length; i++) {
 
-			for (var j = 0; j < options.length; j++) {
+    radioValue = radio[i].value;
+    qi = radio[i].parentElement.id;
 
-				var optionNum = "option" + j;
+    $.ajax({
+      url: '/api/scores-insert/' + id,
+      method: 'POST',
+      data: {
+        question_id: qi,
+        score: radioValue
+      }
+    }).then(function(message) {
+      console.log("data added in scores table");
 
-	      		var label = $("<label>");
-	      		var option = $("<input>");
-
-	      		label.attr("for", q[questionIndex].id + optionNum)
-	      		.attr("class", "label")
-	           	.text(options[j]);
-
-	      		option.attr("type", "radio")
-	            .attr("name", q[questionIndex].id)
-	            .attr("id", q[questionIndex].id + optionNum)
-	            .attr("class", "option")
-	            .attr("value", options[j]);
-
-	            questionPara.append(option);
-	            questionPara.append(label);
-				
-      		}
-
-			$('#questionDiv').append(questionPara);
-
-		}
-	});
+    });
+  }
 }
 
-// function getFriends(){
-// 	$('div').empty();
+function getMatch(id) {
 
-// 	$.ajax({
-// 		url: '/api/friends',
-// 		method: 'GET'
-// 	}).then(function(f){
-// 		for (var friendIndex in f){
-			
-// 			var p = $('<p>');
+  $.ajax({
+    url: '/match/' + id,
+    method: 'GET'
 
-// 			p.text(`id: ${f[friendIndex].id}, friend name: ${f[friendIndex].name}`)
+  }).then(function(matched) {
 
-// 			$('div').prepend(p);
-// 		}
-// 	})
-// }
+    console.log(matched);
+
+    var friendImage = $("<img>");
+
+    $(".friendNameTitle").text(matched[0].name);
+
+    friendImage.attr("src", matched[0].picture_link)
+      .attr("class", "matchImage img-fluid mx-auto d-block");
+
+    $(".friendPicDiv").append(friendImage);
+  });
+}
+
+function getQuestions() {
+
+  var options = [1, 2, 3, 4, 5];
+
+  $.ajax({
+    url: '/questions',
+    method: 'GET'
+  }).then(function(q) {
+  	
+    for (var questionIndex in q) {
+
+      var questionPara = $("<p>");
+
+      questionPara.html(`<strong>${q[questionIndex].id}. ${q[questionIndex].question}</strong> <br>`)
+        .attr("class", "questions")
+        .attr("id", q[questionIndex].id);
+
+      for (var j = 0; j < options.length; j++) {
+
+        var optionNum = "option" + j;
+
+        var label = $("<label>");
+        var option = $("<input>");
+
+        label.attr("for", q[questionIndex].id + optionNum)
+          .attr("class", "label")
+          .text(options[j]);
+
+        option.attr("type", "radio")
+          .attr("name", q[questionIndex].id)
+          .attr("id", q[questionIndex].id + optionNum)
+          .attr("class", "option")
+          .attr("value", options[j]);
+
+        questionPara.append(option);
+        questionPara.append(label);
+
+      }
+
+      $('#questionDiv').append(questionPara);
+
+    }
+  });
+}
