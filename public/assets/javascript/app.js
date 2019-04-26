@@ -105,7 +105,7 @@ function getQuestions() {
 
       var questionPara = $("<p>");
 
-      questionPara.html(`<strong>${q[questionIndex].id}. ${q[questionIndex].question}</strong> <br>`)
+      questionPara.html(`<br><p>${q[questionIndex].id}. ${q[questionIndex].question}</p>`)
         .attr("class", "questions")
         .attr("id", q[questionIndex].id);
 

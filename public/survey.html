@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
+  	<meta charset="utf-8">
+    <!-- Required meta tag for responsiveness -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
     <title>Friend Finder Survey</title>
 
     <!-- Bootstrap css -->
@@ -10,32 +15,41 @@
   </head>
   <body>
 
-  	<div class="container">
+  	<div class="container surveyContainer">
 
-	    <h1>Friend Finder</h1>
-	    <h2>Survey</h2>
+  		<div class="text-center">
+	    <img src="./assets/images/smallLogo.png" class="img-fluid">
+	    <h5>Fill out the survey and we will find the perfect match for you!</h5>
+	    <p class="fields">All fields are required *</p>
+	    </div>
+
 	    <hr>
 
 	    <form id="insert_friend">
 
-			<h3>About You</h3>
+	    	<div class="text-center">
+			<h4>About You</h4>
+			<br>
 
-			<label>Name: </label>
-			<input type="text" name="friend_name" placeholder="Your Name">
+			<label class="aboutLabel">Name: </label>
+			<input type="text" name="friend_name" placeholder="Your Name *">
 
-			<label>Photo: </label>
-			<input type="text" name="photo" placeholder="URL of your picture">
+			<label class="aboutLabel">Photo: </label>
+			<input type="text" name="photo" placeholder="URL of your picture *">
+			</div>
 
 			<hr>
 
-			<h4>On a scale of 1 to 5, rate the following based on your liking. 5 being the most favourite and 1 being the least.</h4>
+			<h4 class="text-center">On a scale of 1 to 5, rate the following based on your liking. 5 being the most favourite and 1 being the least *</h4>
+
+			<br>
 
 			<div id="questionDiv"></div>
 
 	    </form>
 
 	    <!-- Using this button witout  data-toggle="modal" data-target="#myModal" as want it to open modal only after user fills out all fields-->
-	    <button type="submit" class="btn btn-info btn-lg btn-block" id="submitAns">Submit</button>
+	    <button type="submit" class="btn btn-info btn-lg btn-block submitButton" id="submitAns">Submit</button>
 
     	 <!-- Commented out this button as wanted the modal to open only if all fields are filled by user -->
 	    <!-- <button type="button" data-toggle="modal" data-target="#myModal" id="submitAns" class="btn btn-info btn-lg btn-block">Submit</button> -->
@@ -61,13 +75,13 @@
 		      
 		        <!-- Modal Header -->
 		        <div class="modal-header">
-		          <h3 class="modal-title">Best Match</h3>
+		          <h3 class="modal-title modalTitle">Your Best Match</h3>
 		          <button type="button" class="close" data-dismiss="modal">&times;</button>
 		        </div>
 		        
 		        <!-- Modal body -->
 		        <div class="modal-body friendPicDiv">
-		        	<h4 class="friendNameTitle"></h4>
+		        	<h4 class="friendNameTitle text-center"></h4>
 		        </div>
 		        
 		        <!-- Modal footer -->

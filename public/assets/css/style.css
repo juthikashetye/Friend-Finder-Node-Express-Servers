@@ -1,8 +1,82 @@
+html {
+	background-image: url("../images/friends.jpg");
+  	background-repeat: no-repeat;
+  	background-size: cover;
+  	min-height: 100vh;
+}
+body {
+	background-color: rgba(0,0,0,0.8);
+  	background-size: cover;
+  	min-height: 100vh;
+  	color: rgb(245,245,245);
+  	padding: 2%;
+}
+
+hr {
+	height: 1px;
+	background-color: rgba(245,245,245,0.4);
+	border: none;
+}
+
+.jumboDiv {
+	background-color: transparent;
+}
+
 .label {
 	margin-right: 4%;
 	margin-left: 1%;
+	color: rgb(175,238,238);
+}
+
+h4 {
+	color: #2399c6;
+}
+
+.fields {
+	color: rgb(205,92,92);
+}
+
+.aboutLabel {
+	margin-left: 2%;
+	color: 	rgb(240,230,140);
+}
+
+input {
+	background-color: rgb(255,255,240);
 }
 
 .questions {
 	font-size: 110%;
+}
+
+.questions p {
+	font-size: 110%;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	color: 	rgb(240,230,140);
+}
+
+.modalTitle {
+	color: rgb(105,105,105);
+}
+
+/*media queries*/
+
+/*md screen*/
+
+@media screen and (max-width: 768px) {
+
+  .indexContainer {
+	margin-top: 10%;
+}
+
+}
+
+/*sm screen*/
+
+@media screen and (max-width: 640px) {
+
+  .indexContainer {
+	margin-top: 20%;
+}
+
 }
